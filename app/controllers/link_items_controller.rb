@@ -10,6 +10,32 @@ class LinkItemsController < ApplicationController
   # GET /link_items/1
   # GET /link_items/1.json
   def show
+    @link_item = LinkItem.find(params[:id])
+    if(@link_item.password_digest == nil)
+      puts "Doesn't need password"
+      puts @link_item
+      # redirect_to @link_item
+    else
+      puts "Need password"
+      render "auth_page"
+    end
+  end
+
+  def checkpassword
+    puts "YO"
+    puts params[:link_item][:password]
+
+    @link_item = LinkItem.find(params[:id])
+
+    # puts @link_item.password_digest
+    # puts @link_item.authenticate(params[:link_item][:password])
+
+    if(@link_item && @link_item.authenticate(params[:link_item][:password]))
+      render action: 'show'
+    else
+      render "auth_page"
+      puts "fail"
+    end
   end
 
   # GET /link_items/new
@@ -64,10 +90,10 @@ class LinkItemsController < ApplicationController
   def redirector
     short_name = params[:short_name]
     li = LinkItem.find_by_short_name(short_name)
-   
+
     v = Visit.new({:ip_address => request.remote_ip, :referrer => request.referer })
     li.visits << v
-   
+
     redirect_to li.original_url
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140602160732) do
+ActiveRecord::Schema.define(version: 20140602192043) do
 
   create_table "link_items", force: true do |t|
     t.string   "original_url"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140602160732) do
     t.boolean  "needs_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_digest"
   end
 
   create_table "visits", force: true do |t|

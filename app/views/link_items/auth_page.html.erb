@@ -1,0 +1,13 @@
+<h1>Link requires password</h1>
+
+<%= form_for @link_item, :url => { :action => 'checkpassword' }, :html => { :method => 'post', :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :password, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :password, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="form-actions">
+  <%= f.submit :class => 'btn btn-primary' %>
+  </div>
+<% end %>
